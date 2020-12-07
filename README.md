@@ -37,3 +37,6 @@ make afl # run AFL to generate training data. Whenever you think data is suffici
 make # run our rust-fuzzer
 
 ```
+
+# Sample
+![](https://s8.gifyu.com/images/ezgif-6-28948025d975.gif)
