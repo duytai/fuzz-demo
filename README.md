@@ -8,7 +8,7 @@ This is a demo for rust-fuzzer. The architecture of the project is briefly descr
 - File `fuzzer.py` contains the main logic of our fuzzer:
   - **Step1**: Read testcases, bitmap to create train data
   - **Step2**: Detect hot bytes and brute-force them to generate testcases (under `tmp/topk/`)
-  - **Step3**: Ask `veifier` to execute newly generated testcases (under `tmp/topk`)
+  - **Step3**: Ask `verifier` to execute newly generated testcases (under `tmp/topk`)
   - **Step4**: Jump to **Step1**
   
 # Requirements
