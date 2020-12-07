@@ -7,7 +7,7 @@ This is a demo for rust-fuzzer. The architecture of the project is briefly descr
 - Folder `verifier/` is a simplified version of a AFL fuzzer. It reads all testcases from a folder and generates meaningful reports (e.g. edge coverage, number of paths, etc...)
 - File `fuzzer.py` contains the main logic of our fuzzer:
   - **Step1**: Read testcases, bitmap to create train data
-  - **Step2**: Detect hot bytes and brute-force them to generate testcases (under `tmp/topk/`)
+  - **Step2**: Training to detect hot bytes and brute-force them to generate testcases (under `tmp/topk/`)
   - **Step3**: Ask `verifier` to execute newly generated testcases (under `tmp/topk`)
   - **Step4**: Jump to **Step1**
   
