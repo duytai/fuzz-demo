@@ -2,7 +2,7 @@
 
 This is a demo for rust-fuzzer. The architecture of the project is briefly described as following:
 
-- Folder `pnm/` is a `Rust` project (https://github.com/image-rs/image). It takes `png` image and decode it
+- Folder `pnm/` is a `Rust` project (https://github.com/image-rs/image). It takes `png` image and decode
 - Foder `in/` contains initial testcases
 - Folder `verifier/` is a simplified version of a AFL fuzzer. It reads all testcases from a folder and generates meaningful reports (e.g. edge coverage, number of paths, etc...)
 - File `fuzzer.py` contains the main logic of our fuzzer:
