@@ -34,7 +34,7 @@ This project is ready to fuzz. If you want to re-run the entire process. Plz, do
 ```bash
 make clean
 make instrument # instrument Rust project
-make afl # run AFL to generate training data. Whenever you think data is sufficient, stop AFL
+make png-afl # run AFL to generate training data. Whenever you think data is sufficient, stop AFL
 make # run our rust-fuzzer
 
 ```
