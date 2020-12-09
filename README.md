@@ -17,6 +17,7 @@ To run this, you have to install the following packages:
 
 - pytorch: ```pip install torch```
 - numpy: ```pip install numpy```
+- tqdm: ```pip install tqdm```
 
 Note that: rust-fuzzer requires GPU
 
