@@ -1,6 +1,6 @@
 # Introduction
 
-The architecture of the project is briefly described as following:
+The architecture of this project is briefly described as following:
 
 - Folder `pnm/` is a `Rust` project (https://github.com/image-rs/image). It takes `png` image and decode
 - Foder `in/` contains initial test inputs
