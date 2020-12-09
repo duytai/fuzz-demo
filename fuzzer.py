@@ -14,6 +14,7 @@ import sys
 import subprocess
 import shutil
 import logging
+from tqdm import tqdm
 
 logging.basicConfig(level='INFO')
 log = logging.getLogger("fuzzer")
@@ -124,17 +125,15 @@ if __name__ == "__main__":
         tmp = np.frombuffer(open(map_file, "rb").read(), dtype=np.uint8)
         log.info("num inputs\t: %d" % in_count)
         log.info("file size\t: %d" % max_size)
-        log.info("branches\t: %d" % branch_count)
         log.info("density\t: %.02f" % (density * 100))
         log.info("coverage\t: %d" % len(tmp[tmp != 255]))
         
         ## create neural network
+        log.info('load model...')
         device = torch.device('cuda')
         net = Net(in_norms.shape[1], loss_norms.shape[1]).double().to(device)
         loss_fn = torch.nn.BCELoss()
         optimizer = torch.optim.Adam(net.parameters(), lr=1e-4)
-        log.info("neural network")
-        print(net)
 
         ## train them
         in_norms_train = in_norms[0: int(0.9 * in_norms.shape[0])]
@@ -149,22 +148,14 @@ if __name__ == "__main__":
         xs_test = torch.tensor(in_norms_train, device=device)
         ys_test = torch.tensor(loss_norms_train, device=device)
 
-        for epoch in range(total_epoch):
+        log.info('training...')
+        for epoch in tqdm(range(total_epoch)):
             for at in range(0, xs_train.shape[0], batch_size):
                 y_pred = net(xs_train[at: at + batch_size])
                 loss = loss_fn(y_pred, ys_train[at : at + batch_size])
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()
-            with torch.no_grad():
-                if epoch % 10 == 0:
-                    correct = 0
-                    y_pred = net(xs_test)
-                    for a, b in zip(y_pred, ys_test):
-                        if (torch.round(a) == torch.round(b)).sum().item() == a.shape[0]:
-                            correct += 1
-                    accuracy = correct / xs_test.shape[0] * 100
-                    log.info("Epoch %d - loss: %.9f" % (epoch, loss.item()))
 
         ### generate testcases
 
@@ -179,10 +170,11 @@ if __name__ == "__main__":
         optimizer.zero_grad()
         loss.backward()
 
+        log.info('generating...')
         counter = 0
         with torch.no_grad():
             grads = in_norms_tensor.grad.cpu().numpy()
-            for grad, in_byte, in_size in list(zip(grads, in_bytes, in_sizes)):
+            for grad, in_byte, in_size in tqdm(list(zip(grads, in_bytes, in_sizes))):
                 topk = np.abs(grad[:in_size]).argsort()[-5:][::-1]
                 sign = np.sign(grad[topk])
                 tmp = in_byte[topk]

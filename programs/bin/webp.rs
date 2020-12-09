@@ -9,20 +9,8 @@ use image::{DynamicImage, ImageDecoder};
 use image::error::{ImageError, ImageResult, LimitError, LimitErrorKind};
 
 #[inline(always)]
-fn png_decode(data: &[u8]) -> ImageResult<DynamicImage> {
-    let decoder = image::png::PngDecoder::new(data)?;
-    let (width, height) = decoder.dimensions();
-
-    if width.saturating_mul(height) > 4_000_000 {
-        return Err(ImageError::Limits(LimitError::from_kind(LimitErrorKind::DimensionError)));
-    }
-
-    DynamicImage::from_decoder(decoder)
-}
-
-#[inline(always)]
-fn pnm_decode(data: &[u8]) -> ImageResult<DynamicImage> {
-    let decoder = image::pnm::PnmDecoder::new(data)?;
+fn webp_decode(data: &[u8]) -> ImageResult<DynamicImage> {
+    let decoder = image::webp::WebPDecoder::new(data)?;
     let (width, height) = decoder.dimensions();
 
     if width.saturating_mul(height) > 4_000_000 {
@@ -38,7 +26,7 @@ fn main() {
     let mut f = File::open(&args[1]).unwrap();
     f.read_to_end(&mut buffer).unwrap();
     let was_panic = panic::catch_unwind(|| {
-        let _ = png_decode(&buffer);
+        let _ = webp_decode(&buffer);
         println!("OK");
     });
     if was_panic.is_err() {

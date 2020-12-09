@@ -1,13 +1,15 @@
-all:
-	@rm -rf tmp/
-	@mkdir tmp/
-	./fuzzer.py -i out/queue/ -o tmp/ ./pnm/target/debug/pnm @@
+all: png
 
-afl:
-	@afl-fuzz -i in/ -o out/ ./pnm/target/debug/pnm @@
+png:
+	@rm -rf fuzz/png/tmp/
+	@mkdir fuzz/png/tmp/
+	./fuzzer.py -i fuzz/png/out/queue/ -o fuzz/png/tmp ./programs/target/debug/png @@
+
+png-afl:
+	@afl-fuzz -i fuzz/png/in -o fuzz/png/out ./programs/target/debug/png @@
 
 instrument:
-	@cd pnm/ && ./instrument.sh
+	@cd programs/ && ./instrument.sh
 
 clean:
-	@cd pnm && rm -rf target/
+	@cd programs && rm -rf target/
