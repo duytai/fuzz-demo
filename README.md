@@ -1,14 +1,14 @@
 # Introduction
 
-This is a demo for rust-fuzzer. The architecture of the project is briefly described as following:
+The architecture of the project is briefly described as following:
 
 - Folder `pnm/` is a `Rust` project (https://github.com/image-rs/image). It takes `png` image and decode
-- Foder `in/` contains initial testcases
-- Folder `verifier/` is a simplified version of a AFL fuzzer. It reads all testcases from a folder and generates meaningful reports (e.g. edge coverage, number of paths, etc...)
+- Foder `in/` contains initial test inputs
+- Folder `verifier/` is a simplified version of AFL fuzzer. It reads all test inputs from a folder and generates reports (e.g. edge coverage, number of paths, etc...)
 - File `fuzzer.py` contains the main logic of our fuzzer:
-  - **Step1**: Read testcases, bitmap to create train data
-  - **Step2**: Training to detect hot bytes and brute-force them to generate testcases (under `tmp/topk/`)
-  - **Step3**: Ask `verifier` to execute newly generated testcases (under `tmp/topk`)
+  - **Step1**: Read test inputs, bitmap to create train data
+  - **Step2**: Training to detect hot bytes and brute-force them to generate test inputs (under `tmp/topk/`)
+  - **Step3**: Ask `verifier` to execute newly generated test inputs (under `tmp/topk`)
   - **Step4**: Jump to **Step1**
   
 # Requirements
@@ -17,6 +17,7 @@ To run this, you have to install the following packages:
 
 - pytorch: ```pip install torch```
 - numpy: ```pip install numpy```
+- tqdm: ```pip install tqdm```
 
 Note that: rust-fuzzer requires GPU
 
