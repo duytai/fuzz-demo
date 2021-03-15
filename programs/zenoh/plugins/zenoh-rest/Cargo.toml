@@ -1,0 +1,55 @@
+#
+# Copyright (c) 2017, 2020 ADLINK Technology Inc.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# http://www.eclipse.org/legal/epl-2.0, or the Apache License, Version 2.0
+# which is available at https://www.apache.org/licenses/LICENSE-2.0.
+#
+# SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
+#
+# Contributors:
+#   ADLINK zenoh team, <zenoh@adlink-labs.tech>
+#
+[package]
+name = "zenoh-rest"
+version = "0.5.0-beta.8"
+repository = "https://github.com/eclipse-zenoh/zenoh"
+homepage = "http://zenoh.io"
+authors = ["kydos <angelo@icorsaro.net>",
+           "Julien Enoch <julien@enoch.fr>",
+           "Olivier Hécart <olivier.hecart@adlinktech.com>",
+		   "Luca Cominardi <luca.cominardi@adlinktech.com>"]
+edition = "2018"
+license = " EPL-2.0 OR Apache-2.0"
+categories = ["network-programming"]
+description = "The zenoh REST plugin"
+
+
+[lib]
+name = "zplugin_rest"
+crate-type = ["cdylib"]
+
+
+[dependencies]
+zenoh = { version = "0.5.0-beta.8", path = "../../zenoh" }
+async-std = "=1.9.0"
+futures = "0.3.12"
+tide = "0.16.0"
+serde_json = "1.0"
+base64 = "0.13.0"
+clap = "2"
+log = "0.4"
+env_logger = "0.8.2"
+
+[[example]]
+name = "zn_serve_sse"
+path = "examples/zenoh-net/zn_serve_sse.rs"
+
+[package.metadata.deb]
+name = "zenoh-rest"
+maintainer = "zenoh-dev@eclipse.org"
+copyright = "2017, 2020 ADLINK Technology Inc."
+section = "net"
+license-file = ["../../LICENSE", "0"]
+depends = "zenohd (=0.5.0~beta.8)"

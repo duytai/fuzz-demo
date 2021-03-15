@@ -1,0 +1,53 @@
+#
+# Copyright (c) 2017, 2020 ADLINK Technology Inc.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# http://www.eclipse.org/legal/epl-2.0, or the Apache License, Version 2.0
+# which is available at https://www.apache.org/licenses/LICENSE-2.0.
+#
+# SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
+#
+# Contributors:
+#   ADLINK zenoh team, <zenoh@adlink-labs.tech>
+#
+[package]
+name = "zenoh-storages"
+version = "0.5.0-beta.8"
+repository = "https://github.com/eclipse-zenoh/zenoh"
+homepage = "http://zenoh.io"
+authors = ["kydos <angelo@icorsaro.net>",
+           "Julien Enoch <julien@enoch.fr>",
+           "Olivier Hécart <olivier.hecart@adlinktech.com>",
+		   "Luca Cominardi <luca.cominardi@adlinktech.com>"]
+edition = "2018"
+license = " EPL-2.0 OR Apache-2.0"
+categories = ["network-programming"]
+description = "The zenoh storages plugin."
+
+
+[lib]
+name = "zplugin_storages"
+crate-type = ["cdylib"]
+
+
+[dependencies]
+async-std = "=1.9.0"
+zenoh = { version = "0.5.0-beta.8", path = "../../zenoh" }
+zenoh-util = { version = "0.5.0-beta.8", path = "../../zenoh-util" }
+zenoh_backend_traits = { version = "0.5.0-beta.8", path = "../../backends/traits" }
+async-trait = "0.1"
+futures = "0.3.12"
+libloading = "0.6.7"
+clap = "2"
+log = "0.4"
+env_logger = "0.8.2"
+lazy_static = "1.4.0"
+
+[package.metadata.deb]
+name = "zenoh-storages"
+maintainer = "zenoh-dev@eclipse.org"
+copyright = "2017, 2020 ADLINK Technology Inc."
+section = "net"
+license-file = ["../../LICENSE", "0"]
+depends = "zenohd (=0.5.0~beta.8)"
