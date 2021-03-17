@@ -49,7 +49,7 @@ make zenoh-afl # run AFL to generate training data. Whenever you think data is s
 make zenoh # run our rust-fuzzer
 ``` 
 
-[FUZZ_README](./programs/zenoh) shows the details of fuzzing zenoh API. If you want to fuzz the other API of `zenoh`, It may be helpful.
+[FUZZ_README](./programs/zenoh/FUZZ_README.md) shows the details of fuzzing zenoh API. If you want to fuzz the other API of `zenoh`, It may be helpful.
 
 # Sample
 ![](https://s8.gifyu.com/images/ezgif-6-28948025d975.gif)
